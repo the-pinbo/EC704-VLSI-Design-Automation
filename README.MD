@@ -10,25 +10,19 @@ Jupyter notebook runs on Python, so you'll need to have Python installed on your
 
 Once you have Python installed, you can install Jupyter notebook using the following command in the Command Prompt:
 
-`bash
-pip install jupyter
-`
+`pip install jupyter`
 
 ### Create a Virtual Environment
 
 To keep your dependencies organized, it's recommended to create a virtual environment. You can create a virtual environment using the following command:
 
-`bash
-python -m venv .venv
-`
+`python -m venv .venv`
 
 ### Activate the Virtual Environment:
 
 To activate the virtual environment, run the following command in the Command Prompt:
 
-`bash
-.venv\Scripts\activate
-`
+`.venv\Scripts\activate`
 
 ### Install Dependencies:
 

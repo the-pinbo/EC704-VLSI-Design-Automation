@@ -27,7 +27,7 @@ python -m venv .venv
 To activate the virtual environment, run the following command in the Command Prompt:
 
 `bash
-myenv\Scripts\activate
+.venv\Scripts\activate
 `
 
 ### Install Dependencies:
@@ -66,7 +66,7 @@ To keep your dependencies organized, it's recommended to create a virtual enviro
 
 To activate the virtual environment, run the following command in the terminal:
 
-`source myenv/bin/activate`
+`source .venv/bin/activate`
 
 ### Install Dependencies:
 

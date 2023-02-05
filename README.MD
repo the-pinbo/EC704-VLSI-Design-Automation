@@ -19,7 +19,7 @@ pip install jupyter
 To keep your dependencies organized, it's recommended to create a virtual environment. You can create a virtual environment using the following command:
 
 `bash
-python -m venv myenv
+python -m venv .venv
 `
 
 ### Activate the Virtual Environment:
@@ -60,7 +60,7 @@ Once you have Python installed, you can install Jupyter notebook using the follo
 
 To keep your dependencies organized, it's recommended to create a virtual environment. You can create a virtual environment using the following command:
 
-`python3 -m venv myenv`
+`python3 -m venv .venv`
 
 ### Activate the Virtual Environment:
 

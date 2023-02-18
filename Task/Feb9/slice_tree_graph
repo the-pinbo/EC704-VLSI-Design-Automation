@@ -1,0 +1,15 @@
+digraph {
+	139648495488592 [label=v color=mistyrose height=0.16 shape=rectangle style=filled width=0.13]
+	139648495326496 [label=h color=skyblue height=0.16 shape=rectangle style=filled width=0.09]
+	139648495488592 -> 139648495326496
+	139648850627936 [label=m1 color=black height=0.1 shape=rectangle style=filled width=0.01]
+	139648495326496 -> 139648850627936
+	139648495326832 [label=v color=mistyrose height=0.06 shape=rectangle style=filled width=0.09]
+	139648495326496 -> 139648495326832
+	139648850758000 [label=m2 color=black height=0.05 shape=rectangle style=filled width=0.02]
+	139648495326832 -> 139648850758000
+	139648495327840 [label=m3 color=black height=0.06 shape=rectangle style=filled width=0.07]
+	139648495326832 -> 139648495327840
+	139648495488688 [label=m4 color=black height=0.01 shape=rectangle style=filled width=0.04]
+	139648495488592 -> 139648495488688
+}

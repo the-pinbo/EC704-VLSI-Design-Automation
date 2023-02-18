@@ -1,0 +1,30 @@
+graph {
+	node [shape=rectangle]
+	block_0 [label="block_0
+10x5" color="#d7c16b" height=1 width=2]
+	block_1 [label="block_1
+8x6" color="#22d8c3" height=1 width=1]
+	block_2 [label="block_2
+4x13" color="#f4f20e" height=2 width=0]
+	block_3 [label="block_3
+10x3" color="#3d8b5e" height=0 width=2]
+	block_4 [label="block_4
+8x4" color="#3c1a65" height=0 width=1]
+	block_5 [label="block_5
+4x1" color="#9fbdcb" height=0 width=0]
+	block_0 -- block_1 [label=1 color="#d7c16b"]
+	block_0 -- block_2 [label=3 color="#d7c16b"]
+	block_0 -- block_3 [label=2 color="#d7c16b"]
+	block_0 -- block_4 [label=4 color="#d7c16b"]
+	block_0 -- block_5 [label=2 color="#d7c16b"]
+	block_1 -- block_2 [label=3 color="#22d8c3"]
+	block_1 -- block_3 [label=1 color="#22d8c3"]
+	block_1 -- block_4 [label=2 color="#22d8c3"]
+	block_1 -- block_5 [label=1 color="#22d8c3"]
+	block_2 -- block_3 [label=1 color="#f4f20e"]
+	block_2 -- block_4 [label=1 color="#f4f20e"]
+	block_2 -- block_5 [label=2 color="#f4f20e"]
+	block_3 -- block_4 [label=2 color="#3d8b5e"]
+	block_3 -- block_5 [label=3 color="#3d8b5e"]
+	block_4 -- block_5 [label=1 color="#3c1a65"]
+}

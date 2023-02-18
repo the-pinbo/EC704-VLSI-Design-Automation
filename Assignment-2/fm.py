@@ -215,6 +215,7 @@ def fm(adjM, area_dict, fm_passes=1):
     print('#'*50)
     print('#'*50)
     print("Final results")
+    print("Number of FM passes: ", fm_passes)
     print(f"Final min_cut: {min_cut[0]}")
     print(f"Final a partition: {best_a}")
     print(f"Final b partition: {best_b}")
@@ -225,7 +226,7 @@ def fm(adjM, area_dict, fm_passes=1):
 def main():
     adjM = np.array([[0, 2, 1, 0], [2, 0, 3, 0], [1, 3, 0, 2], [0, 0, 2, 0]])
     area_dict = {0: 10, 1: 20, 2: 5, 3: 15}
-    fm(adjM, area_dict)
+    fm(adjM, area_dict, 3)
 
 
 if __name__ == "__main__":

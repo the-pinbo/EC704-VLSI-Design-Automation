@@ -196,7 +196,22 @@ def fmPass(adjL, a, b, area_dict, MAX_GAIN):
     return min_cut, best_a, best_b
 
 
-def fm(adjM, area_dict, fm_passes=1):
+def adjacency_matrix(graph):
+    """
+    Computes the adjacency matrix of a graph with weighted edges.
+    Returns a dictionary where the keys are nodes and the values are dictionaries
+    of neighboring nodes and their corresponding edge weights.
+    """
+    adj_matrix = {}
+    for node in graph:
+        adj_matrix[node] = {}
+        for neighbor, weight in graph[node]:
+            adj_matrix[node][neighbor] = weight
+    return adj_matrix
+
+
+
+def fm(adjM, area_dict,fm_passes=1):
     adjL, nodes, MAX_GAIN = initGraph(adjM)
     a, b = randomPartition(nodes)
     min_cut = None
@@ -221,6 +236,23 @@ def fm(adjM, area_dict, fm_passes=1):
     print(f"Final b partition: {best_b}")
     print('#'*50)
     print('#'*50)
+    
+    ## added
+    if len(best_a) != 1:
+        rowsa = list(best_a)
+        colsa = list(best_a)
+        submatrixa = adjM[rowsa][:, colsa] #selecting the matrix for those vertices which are in the partition
+        print(submatrixa)
+        fm(submatrixa,area_dict,fm_passes+1)
+    if len(best_b) != 1:
+        rowsb = list(best_b)
+        colsb = list(best_b)
+        submatrixb = adjM[rowsb][:, colsb] #selecting the matrix for those vertices which are in the partition
+        print(submatrixb)
+        fm(submatrixb,area_dict,fm_passes+1)
+    ##
+  
+        
 
 
 def main():

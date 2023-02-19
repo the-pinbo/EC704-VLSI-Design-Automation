@@ -1,0 +1,76 @@
+graph block {
+	node [shape=rectangle]
+	subgraph "cluster_(((0,), 1), ((4,), 1))" {
+		subgraph "cluster_(0,)" {
+			0 [label="0
+10x5
+best_cut=1" color="#d7c16b" height=1 width=2]
+			color="#bb1894" label="cluster_(0,)
+best_cut=4"
+		}
+		subgraph "cluster_(4,)" {
+			4 [label="4
+8x4
+best_cut=1" color="#3c1a65" height=0 width=1]
+			color="#9f34d8" label="cluster_(4,)
+best_cut=4"
+		}
+		color="#2dfe30" label="cluster_(((0,), 1), ((4,), 1))
+best_cut=12"
+	}
+	subgraph "cluster_(((((1,), 1), ((2,), 1)), 3), ((((3,), 1), ((5,), 1)), 3))" {
+		subgraph "cluster_(((1,), 1), ((2,), 1))" {
+			subgraph "cluster_(1,)" {
+				1 [label="1
+8x6
+best_cut=1" color="#22d8c3" height=1 width=1]
+				color="#ead797" label="cluster_(1,)
+best_cut=3"
+			}
+			subgraph "cluster_(2,)" {
+				2 [label="2
+4x13
+best_cut=1" color="#f4f20e" height=2 width=0]
+				color="#0c0e1d" label="cluster_(2,)
+best_cut=3"
+			}
+			color="#a0ec23" label="cluster_(((1,), 1), ((2,), 1))
+best_cut=5"
+		}
+		subgraph "cluster_(((3,), 1), ((5,), 1))" {
+			subgraph "cluster_(3,)" {
+				3 [label="3
+10x3
+best_cut=1" color="#3d8b5e" height=0 width=2]
+				color="#dfe539" label="cluster_(3,)
+best_cut=3"
+			}
+			subgraph "cluster_(5,)" {
+				5 [label="5
+4x1
+best_cut=1" color="#9fbdcb" height=0 width=0]
+				color="#0edb39" label="cluster_(5,)
+best_cut=3"
+			}
+			color="#3c60de" label="cluster_(((3,), 1), ((5,), 1))
+best_cut=5"
+		}
+		color="#9cb375" label="cluster_(((((1,), 1), ((2,), 1)), 3), ((((3,), 1), ((5,), 1)), 3))
+best_cut=12"
+	}
+	0 -- 1 [label=1]
+	0 -- 2 [label=3]
+	0 -- 3 [label=2]
+	0 -- 4 [label=4]
+	0 -- 5 [label=2]
+	1 -- 2 [label=3]
+	1 -- 3 [label=1]
+	1 -- 4 [label=2]
+	1 -- 5 [label=1]
+	2 -- 3 [label=1]
+	2 -- 4 [label=1]
+	2 -- 5 [label=2]
+	3 -- 4 [label=2]
+	3 -- 5 [label=3]
+	4 -- 5 [label=1]
+}

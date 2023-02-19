@@ -3,6 +3,8 @@ from collections import defaultdict
 import numpy as np
 import random
 import numpy.typing as npt
+import graphviz as gv
+import matplotlib.colors as mcolors
 
 
 def initGraph(adjM: npt.NDArray[np.int64]) -> Tuple[DefaultDict[int, List[Tuple[int, int]]], int]:
@@ -299,21 +301,103 @@ def fmRecursive(adjL: DefaultDict[int, List[Tuple[int, int]]], MAX_GAIN: int, ar
     return partition, best_cut
 
 
-def main():
-    adjM: npt.NDArray[np.int64] = np.array([[0, 1, 3, 2, 4, 2],
-                                           [1, 0, 3, 1, 2, 1],
-                                            [3, 3, 0, 1, 1, 2],
-                                            [2, 1, 1, 0, 2, 3],
-                                            [4, 2, 1, 2, 0, 1],
-                                            [2, 1, 2, 3, 1, 0]])
-    area_dict: Dict[int, int] = {0: 50, 1: 48, 2: 52, 3: 30, 4: 32, 5: 4}
-    # fm(adjM, area_dict, 3)
+# Reading input
+def readInput(input1: str, input2: str) -> Tuple[np.ndarray, Dict[int, Dict[str, int]], Dict[int, int]]:
+    with open(input1, 'r') as file:
+        input1_data = file.read()
+
+    with open(input2, 'r') as file:
+        input2_data = file.read()
+
+    input1_data = eval(input1_data.replace(' ', '').replace(
+        '\n', '').replace('{', '(').replace('}', ')'))
+    adjM = np.array([eval('['+row.strip().replace(' ', ',')+']')
+                    for row in input2_data.strip()[1:-1].split('\n')])
+
+    blocks_dimension = {idx: {'width': width, 'height': height}
+                        for idx, (width, height) in enumerate(input1_data[1:])}
+    area_dict = {idx: width*height for idx,
+                 (width, height) in enumerate(input1_data[1:])}
+    return adjM, blocks_dimension, area_dict
+
+# GraphVisualization
+
+
+def get_color(block_id: int) -> str:
+    # Create a random color based on the block_id
+    random.seed(block_id)
+    r, g, b = random.random(), random.random(), random.random()
+    color_str = mcolors.rgb2hex((r, g, b))
+    return color_str
+
+
+def getEdgeList(adjL: DefaultDict[int, List[Tuple[int, int]]]) -> List[Tuple[int, int, int]]:
+    edge_list = []
+    seen = set()
+    for u in adjL.keys():
+        seen.add(u)
+        for v, w in adjL[u]:
+            if v not in seen:
+                edge_list.append((u, v, w))
+    return edge_list
+
+
+def drawBlockRecursive(graph: gv.Graph, block: Tuple[Tuple, int], blocks_dimension: Dict[int, Dict[str, int]]) -> gv.Graph:
+    partition, best_cut = block
+    if len(partition) == 1:
+        block_id: int = partition[0]
+        color = get_color(block_id)
+        width = blocks_dimension[block_id]['width']
+        height = blocks_dimension[block_id]['height']
+        block_label = str(block_id)
+        graph.node(block_label, f'{block_id}\n{width}x{height}\nbest_cut={best_cut}',
+                   width=f'{width//5}', height=f'{height//5}', color=color)
+        return graph
+    else:
+        left_block, right_block = partition
+        with graph.subgraph(name=f'cluster_{left_block[0]}') as c:
+            drawBlockRecursive(c, left_block, blocks_dimension)
+            color = get_color(id(left_block))
+            c.attr(
+                label=f'cluster_{left_block[0]}\nbest_cut={best_cut}', color=color)
+
+        with graph.subgraph(name=f'cluster_{right_block[0]}') as c:
+            drawBlockRecursive(c, right_block, blocks_dimension)
+            color = get_color(id(right_block))
+            c.attr(
+                label=f'cluster_{right_block[0]}\nbest_cut={best_cut}', color=color)
+        return graph
+
+
+def drawBlocks(adjL, block: Tuple[Tuple, int], blocks_dimension: Dict[int, Dict[str, int]], filename: str = 'block', name: str = 'block', format: str = 'svg') -> gv.Graph:
+    g = gv.Graph(name='block', format='png', engine='fdp',
+                 node_attr={'shape': 'rectangle'}, filename='block')
+    g = drawBlockRecursive(g, block, blocks_dimension)
+    edge_list = getEdgeList(adjL)
+    for u, v, w in edge_list:
+        g.edge(str(u), str(v), label=str(w))
+    return g
+
+
+def main(input1, input2):
+    adjM, blocks_dimension, area_dict = readInput(input1, input2)
     adjL, MAX_GAIN = initGraph(adjM)
-    partition, best_cut = fmRecursive(adjL, MAX_GAIN, area_dict, 3)
-    printBox("FINAL PARTITIONS")
+    del adjM
+    block = fmRecursive(adjL, MAX_GAIN, area_dict, 3)
+    partition, best_cut = block
+    printBox("FINAL PARTITIONS", ch='=', box_width=120)
     print("Partition:", partition)
     print("Best cut", best_cut)
+    grpah = drawBlocks(adjL, block, blocks_dimension)
+    grpah.view()
+    grpah.render()
+    grpah.save()
+    return block, grpah
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    input1 = './input_1.txt'
+    input2 = './input_2.txt'
+    block, grpah = main(input1, input2)
+    print(grpah)
+    print(block)
